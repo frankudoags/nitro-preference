@@ -12,7 +12,12 @@
     ],
     "androidCxxLibName": "NitroPreferences"
   },
-  "autolinking": {},
+  "autolinking": {
+    "Preference": {
+      "swift": "HybridPreference",
+      "kotlin": "HybridPreference"
+    }
+  },
   "ignorePaths": [
     "**/node_modules"
   ]

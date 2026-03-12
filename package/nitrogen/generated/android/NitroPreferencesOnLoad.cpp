@@ -16,6 +16,7 @@
 #include <NitroModules/HybridObjectRegistry.hpp>
 
 #include "JHybridPreferenceSpec.hpp"
+#include <NitroModules/DefaultConstructableObject.hpp>
 
 namespace margelo::nitro::nitropreferences {
 
@@ -25,7 +26,14 @@ int initialize(JavaVM* vm) {
   });
 }
 
-
+struct JHybridPreferenceSpecImpl: public jni::JavaClass<JHybridPreferenceSpecImpl, JHybridPreferenceSpec::JavaPart> {
+  static auto constexpr kJavaDescriptor = "Lcom/margelo/nitro/nitropreferences/HybridPreference;";
+  static std::shared_ptr<JHybridPreferenceSpec> create() {
+    static auto constructorFn = javaClassStatic()->getConstructor<JHybridPreferenceSpecImpl::javaobject()>();
+    jni::local_ref<JHybridPreferenceSpec::JavaPart> javaPart = javaClassStatic()->newObject(constructorFn);
+    return javaPart->getJHybridPreferenceSpec();
+  }
+};
 
 void registerAllNatives() {
   using namespace margelo::nitro;
@@ -35,7 +43,12 @@ void registerAllNatives() {
   margelo::nitro::nitropreferences::JHybridPreferenceSpec::CxxPart::registerNatives();
 
   // Register Nitro Hybrid Objects
-  
+  HybridObjectRegistry::registerHybridObjectConstructor(
+    "Preference",
+    []() -> std::shared_ptr<HybridObject> {
+      return JHybridPreferenceSpecImpl::create();
+    }
+  );
 }
 
 } // namespace margelo::nitro::nitropreferences
