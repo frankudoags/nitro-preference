@@ -14,11 +14,11 @@
 #include <variant>
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/JPromise.hpp>
-#include "JVariant_NullType_String.hpp"
+#include "JStringOutput.hpp"
 #include <NitroModules/JNull.hpp>
 #include <NitroModules/JUnit.hpp>
-#include "JVariant_NullType_Double.hpp"
-#include "JVariant_NullType_Boolean.hpp"
+#include "JNumberOutput.hpp"
+#include "JBoolOutput.hpp"
 
 namespace margelo::nitro::nitropreferences {
 
@@ -59,7 +59,7 @@ namespace margelo::nitro::nitropreferences {
     return [&]() {
       auto __promise = Promise<std::variant<nitro::NullType, std::string>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<JVariant_NullType_String>(__boxedResult);
+        auto __result = jni::static_ref_cast<JStringOutput>(__boxedResult);
         __promise->resolve(__result->toCpp());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
@@ -90,7 +90,7 @@ namespace margelo::nitro::nitropreferences {
     return [&]() {
       auto __promise = Promise<std::variant<nitro::NullType, double>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<JVariant_NullType_Double>(__boxedResult);
+        auto __result = jni::static_ref_cast<JNumberOutput>(__boxedResult);
         __promise->resolve(__result->toCpp());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
@@ -121,7 +121,7 @@ namespace margelo::nitro::nitropreferences {
     return [&]() {
       auto __promise = Promise<std::variant<nitro::NullType, bool>>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
-        auto __result = jni::static_ref_cast<JVariant_NullType_Boolean>(__boxedResult);
+        auto __result = jni::static_ref_cast<JBoolOutput>(__boxedResult);
         __promise->resolve(__result->toCpp());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {

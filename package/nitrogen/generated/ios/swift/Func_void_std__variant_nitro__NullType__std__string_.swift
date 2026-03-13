@@ -8,21 +8,21 @@
 import NitroModules
 
 /**
- * Wraps a Swift `(_ value: Variant_NullType_String) -> Void` as a class.
+ * Wraps a Swift `(_ value: StringOutput) -> Void` as a class.
  * This class can be used from C++, e.g. to wrap the Swift closure as a `std::function`.
  */
 public final class Func_void_std__variant_nitro__NullType__std__string_ {
   public typealias bridge = margelo.nitro.nitropreferences.bridge.swift
 
-  private let closure: (_ value: Variant_NullType_String) -> Void
+  private let closure: (_ value: StringOutput) -> Void
 
-  public init(_ closure: @escaping (_ value: Variant_NullType_String) -> Void) {
+  public init(_ closure: @escaping (_ value: StringOutput) -> Void) {
     self.closure = closure
   }
 
   @inline(__always)
   public func call(value: bridge.std__variant_nitro__NullType__std__string_) -> Void {
-    self.closure({ () -> Variant_NullType_String in
+    self.closure({ () -> StringOutput in
       let __variant = value
       switch __variant.index() {
         case 0:

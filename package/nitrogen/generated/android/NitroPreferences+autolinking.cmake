@@ -36,9 +36,9 @@ target_sources(
   ../nitrogen/generated/shared/c++/HybridPreferenceSpec.cpp
   # Android-specific Nitrogen C++ sources
   ../nitrogen/generated/android/c++/JHybridPreferenceSpec.cpp
-  ../nitrogen/generated/android/c++/JVariant_NullType_String.cpp
-  ../nitrogen/generated/android/c++/JVariant_NullType_Double.cpp
-  ../nitrogen/generated/android/c++/JVariant_NullType_Boolean.cpp
+  ../nitrogen/generated/android/c++/JStringOutput.cpp
+  ../nitrogen/generated/android/c++/JNumberOutput.cpp
+  ../nitrogen/generated/android/c++/JBoolOutput.cpp
 )
 
 # From node_modules/react-native/ReactAndroid/cmake-utils/folly-flags.cmake

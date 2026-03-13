@@ -13,11 +13,11 @@ public protocol HybridPreferenceSpec_protocol: HybridObject {
   
 
   // Methods
-  func getString(key: String) throws -> Promise<Variant_NullType_String>
+  func getString(key: String) throws -> Promise<StringOutput>
   func setString(key: String, value: String) throws -> Promise<Void>
-  func getNumber(key: String) throws -> Promise<Variant_NullType_Double>
+  func getNumber(key: String) throws -> Promise<NumberOutput>
   func setNumber(key: String, value: Double) throws -> Promise<Void>
-  func getBool(key: String) throws -> Promise<Variant_NullType_Bool>
+  func getBool(key: String) throws -> Promise<BoolOutput>
   func setBool(key: String, value: Bool) throws -> Promise<Void>
   func remove(key: String) throws -> Promise<Void>
   func clear() throws -> Promise<Void>

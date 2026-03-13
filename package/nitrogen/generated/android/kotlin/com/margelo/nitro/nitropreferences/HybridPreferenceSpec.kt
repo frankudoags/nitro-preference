@@ -32,7 +32,7 @@ abstract class HybridPreferenceSpec: HybridObject() {
   // Methods
   @DoNotStrip
   @Keep
-  abstract fun getString(key: String): Promise<Variant_NullType_String>
+  abstract fun getString(key: String): Promise<StringOutput>
   
   @DoNotStrip
   @Keep
@@ -40,7 +40,7 @@ abstract class HybridPreferenceSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun getNumber(key: String): Promise<Variant_NullType_Double>
+  abstract fun getNumber(key: String): Promise<NumberOutput>
   
   @DoNotStrip
   @Keep
@@ -48,7 +48,7 @@ abstract class HybridPreferenceSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
-  abstract fun getBool(key: String): Promise<Variant_NullType_Boolean>
+  abstract fun getBool(key: String): Promise<BoolOutput>
   
   @DoNotStrip
   @Keep

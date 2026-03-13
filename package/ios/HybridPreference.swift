@@ -3,7 +3,7 @@ import Foundation
 import NitroModules
 
 class HybridPreference: HybridPreferenceSpec {
-    func getString(key: String) throws -> NitroModules.Promise<Variant_NullType_String> {
+    func getString(key: String) throws -> NitroModules.Promise<StringOutput> {
         return Promise.async {
             if let value = UserDefaults.standard.string(forKey: key) {
                 return .second(value)
@@ -19,7 +19,7 @@ class HybridPreference: HybridPreferenceSpec {
         }
     }
     
-    func getNumber(key: String) throws -> NitroModules.Promise<Variant_NullType_Double> {
+    func getNumber(key: String) throws -> NitroModules.Promise<NumberOutput> {
         return Promise.async {
             if let _ = UserDefaults.standard.object(forKey: key) {
                 return .second(UserDefaults.standard.double(forKey: key))
@@ -35,7 +35,7 @@ class HybridPreference: HybridPreferenceSpec {
         }
     }
     
-    func getBool(key: String) throws -> NitroModules.Promise<Variant_NullType_Bool> {
+    func getBool(key: String) throws -> NitroModules.Promise<BoolOutput> {
         return Promise.async {
             if let _ = UserDefaults.standard.object(forKey: key) {
                 return .second(UserDefaults.standard.bool(forKey: key))
