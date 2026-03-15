@@ -10,9 +10,9 @@
 #include <fbjni/fbjni.h>
 #include "PreferenceEntry.hpp"
 
-#include "JVariant_NullType_Boolean.hpp"
-#include "JVariant_NullType_Double.hpp"
-#include "JVariant_NullType_String.hpp"
+#include "JBoolOutput.hpp"
+#include "JNumberOutput.hpp"
+#include "JStringOutput.hpp"
 #include <NitroModules/JNull.hpp>
 #include <NitroModules/Null.hpp>
 #include <optional>
@@ -40,12 +40,12 @@ namespace margelo::nitro::nitropreferences {
       static const auto clazz = javaClassStatic();
       static const auto fieldKey = clazz->getField<jni::JString>("key");
       jni::local_ref<jni::JString> key = this->getFieldValue(fieldKey);
-      static const auto fieldStringValue = clazz->getField<JVariant_NullType_String>("stringValue");
-      jni::local_ref<JVariant_NullType_String> stringValue = this->getFieldValue(fieldStringValue);
-      static const auto fieldNumberValue = clazz->getField<JVariant_NullType_Double>("numberValue");
-      jni::local_ref<JVariant_NullType_Double> numberValue = this->getFieldValue(fieldNumberValue);
-      static const auto fieldBoolValue = clazz->getField<JVariant_NullType_Boolean>("boolValue");
-      jni::local_ref<JVariant_NullType_Boolean> boolValue = this->getFieldValue(fieldBoolValue);
+      static const auto fieldStringValue = clazz->getField<JStringOutput>("stringValue");
+      jni::local_ref<JStringOutput> stringValue = this->getFieldValue(fieldStringValue);
+      static const auto fieldNumberValue = clazz->getField<JNumberOutput>("numberValue");
+      jni::local_ref<JNumberOutput> numberValue = this->getFieldValue(fieldNumberValue);
+      static const auto fieldBoolValue = clazz->getField<JBoolOutput>("boolValue");
+      jni::local_ref<JBoolOutput> boolValue = this->getFieldValue(fieldBoolValue);
       return PreferenceEntry(
         key->toStdString(),
         stringValue != nullptr ? std::make_optional(stringValue->toCpp()) : std::nullopt,
@@ -60,15 +60,15 @@ namespace margelo::nitro::nitropreferences {
      */
     [[maybe_unused]]
     static jni::local_ref<JPreferenceEntry::javaobject> fromCpp(const PreferenceEntry& value) {
-      using JSignature = JPreferenceEntry(jni::alias_ref<jni::JString>, jni::alias_ref<JVariant_NullType_String>, jni::alias_ref<JVariant_NullType_Double>, jni::alias_ref<JVariant_NullType_Boolean>);
+      using JSignature = JPreferenceEntry(jni::alias_ref<jni::JString>, jni::alias_ref<JStringOutput>, jni::alias_ref<JNumberOutput>, jni::alias_ref<JBoolOutput>);
       static const auto clazz = javaClassStatic();
       static const auto create = clazz->getStaticMethod<JSignature>("fromCpp");
       return create(
         clazz,
         jni::make_jstring(value.key),
-        value.stringValue.has_value() ? JVariant_NullType_String::fromCpp(value.stringValue.value()) : nullptr,
-        value.numberValue.has_value() ? JVariant_NullType_Double::fromCpp(value.numberValue.value()) : nullptr,
-        value.boolValue.has_value() ? JVariant_NullType_Boolean::fromCpp(value.boolValue.value()) : nullptr
+        value.stringValue.has_value() ? JStringOutput::fromCpp(value.stringValue.value()) : nullptr,
+        value.numberValue.has_value() ? JNumberOutput::fromCpp(value.numberValue.value()) : nullptr,
+        value.boolValue.has_value() ? JBoolOutput::fromCpp(value.boolValue.value()) : nullptr
       );
     }
   };

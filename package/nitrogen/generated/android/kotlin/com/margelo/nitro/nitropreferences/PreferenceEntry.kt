@@ -22,13 +22,13 @@ data class PreferenceEntry(
   val key: String,
   @DoNotStrip
   @Keep
-  val stringValue: Variant_NullType_String?,
+  val stringValue: StringOutput?,
   @DoNotStrip
   @Keep
-  val numberValue: Variant_NullType_Double?,
+  val numberValue: NumberOutput?,
   @DoNotStrip
   @Keep
-  val boolValue: Variant_NullType_Boolean?
+  val boolValue: BoolOutput?
 ) {
   /* primary constructor */
 
@@ -40,7 +40,7 @@ data class PreferenceEntry(
     @Keep
     @Suppress("unused")
     @JvmStatic
-    private fun fromCpp(key: String, stringValue: Variant_NullType_String?, numberValue: Variant_NullType_Double?, boolValue: Variant_NullType_Boolean?): PreferenceEntry {
+    private fun fromCpp(key: String, stringValue: StringOutput?, numberValue: NumberOutput?, boolValue: BoolOutput?): PreferenceEntry {
       return PreferenceEntry(key, stringValue, numberValue, boolValue)
     }
   }

@@ -24,9 +24,6 @@ namespace margelo::nitro::nitropreferences { struct PreferenceEntry; }
 #include <vector>
 #include "JPreferenceEntry.hpp"
 #include <optional>
-#include "JVariant_NullType_String.hpp"
-#include "JVariant_NullType_Double.hpp"
-#include "JVariant_NullType_Boolean.hpp"
 
 namespace margelo::nitro::nitropreferences {
 

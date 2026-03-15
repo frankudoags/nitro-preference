@@ -88,6 +88,10 @@ class HybridPreference: HybridPreferenceSpec() {
         }
     }
 
+    override fun getAll(): Promise<Array<PreferenceEntry>> {
+        TODO("Not yet implemented")
+    }
+
     override fun clear(): Promise<Unit> {
         return Promise.async {
             dataStore.edit { preferences ->

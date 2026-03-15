@@ -18,7 +18,7 @@ public extension PreferenceEntry {
   /**
    * Create a new instance of `PreferenceEntry`.
    */
-  init(key: String, stringValue: Variant_NullType_String?, numberValue: Variant_NullType_Double?, boolValue: Variant_NullType_Bool?) {
+  init(key: String, stringValue: StringOutput?, numberValue: NumberOutput?, boolValue: BoolOutput?) {
     self.init(std.string(key), { () -> bridge.std__optional_std__variant_nitro__NullType__std__string__ in
       if let __unwrappedValue = stringValue {
         return bridge.create_std__optional_std__variant_nitro__NullType__std__string__({ () -> bridge.std__variant_nitro__NullType__std__string_ in
@@ -67,11 +67,11 @@ public extension PreferenceEntry {
   }
   
   @inline(__always)
-  var stringValue: Variant_NullType_String? {
-    return { () -> Variant_NullType_String? in
+  var stringValue: StringOutput? {
+    return { () -> StringOutput? in
       if bridge.has_value_std__optional_std__variant_nitro__NullType__std__string__(self.__stringValue) {
         let __unwrapped = bridge.get_std__optional_std__variant_nitro__NullType__std__string__(self.__stringValue)
-        return { () -> Variant_NullType_String in
+        return { () -> StringOutput in
           let __variant = bridge.std__variant_nitro__NullType__std__string_(__unwrapped)
           switch __variant.index() {
             case 0:
@@ -91,11 +91,11 @@ public extension PreferenceEntry {
   }
   
   @inline(__always)
-  var numberValue: Variant_NullType_Double? {
-    return { () -> Variant_NullType_Double? in
+  var numberValue: NumberOutput? {
+    return { () -> NumberOutput? in
       if bridge.has_value_std__optional_std__variant_nitro__NullType__double__(self.__numberValue) {
         let __unwrapped = bridge.get_std__optional_std__variant_nitro__NullType__double__(self.__numberValue)
-        return { () -> Variant_NullType_Double in
+        return { () -> NumberOutput in
           let __variant = bridge.std__variant_nitro__NullType__double_(__unwrapped)
           switch __variant.index() {
             case 0:
@@ -115,11 +115,11 @@ public extension PreferenceEntry {
   }
   
   @inline(__always)
-  var boolValue: Variant_NullType_Bool? {
-    return { () -> Variant_NullType_Bool? in
+  var boolValue: BoolOutput? {
+    return { () -> BoolOutput? in
       if bridge.has_value_std__optional_std__variant_nitro__NullType__bool__(self.__boolValue) {
         let __unwrapped = bridge.get_std__optional_std__variant_nitro__NullType__bool__(self.__boolValue)
-        return { () -> Variant_NullType_Bool in
+        return { () -> BoolOutput in
           let __variant = bridge.std__variant_nitro__NullType__bool_(__unwrapped)
           switch __variant.index() {
             case 0:
