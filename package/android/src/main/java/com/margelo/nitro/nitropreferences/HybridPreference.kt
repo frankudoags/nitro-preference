@@ -13,7 +13,7 @@ import okio.Path.Companion.toPath
 
 internal const val PREFERENCE_FILE_NAME = "nitro_preferences.preferences_pb"
 
-class HybridPreference: HybridPreferenceSpec() {
+class HybridPreference : HybridPreferenceSpec() {
     override fun getString(key: String): Promise<StringOutput> {
         return Promise.async {
             val prefKey = stringPreferencesKey(key)
@@ -89,7 +89,38 @@ class HybridPreference: HybridPreferenceSpec() {
     }
 
     override fun getAll(): Promise<Array<PreferenceEntry>> {
-        TODO("Not yet implemented")
+        return Promise.async {
+            val preferences = dataStore.data.first()
+            preferences.asMap().map { (prefKey, value) ->
+                when (value) {
+                    is String -> PreferenceEntry(
+                        prefKey.name,
+                        StringOutput.create(value),
+                        null,
+                        null
+                    )
+
+                    is Double -> PreferenceEntry(
+                        prefKey.name,
+                        null,
+                        NumberOutput.create(value),
+                        null
+                    )
+
+                    is Boolean -> PreferenceEntry(
+                        prefKey.name,
+                        null,
+                        null,
+                        BoolOutput.create(value)
+                    )
+
+                    else -> null
+                }
+
+            }
+                .filterNotNull()
+                .toTypedArray()
+        }
     }
 
     override fun clear(): Promise<Unit> {
@@ -101,7 +132,8 @@ class HybridPreference: HybridPreferenceSpec() {
     }
 
     companion object {
-        private val context = NitroModules.applicationContext ?: error("React native context not found")
+        private val context =
+            NitroModules.applicationContext ?: error("React native context not found")
         private val dataStore = PreferenceDataStoreFactory.createWithPath(
             produceFile = { context.filesDir.resolve(PREFERENCE_FILE_NAME).absolutePath.toPath() }
         )
