@@ -21,6 +21,7 @@ namespace margelo::nitro::nitropreferences {
       prototype.registerHybridMethod("getBool", &HybridPreferenceSpec::getBool);
       prototype.registerHybridMethod("setBool", &HybridPreferenceSpec::setBool);
       prototype.registerHybridMethod("remove", &HybridPreferenceSpec::remove);
+      prototype.registerHybridMethod("getAll", &HybridPreferenceSpec::getAll);
       prototype.registerHybridMethod("clear", &HybridPreferenceSpec::clear);
     });
   }

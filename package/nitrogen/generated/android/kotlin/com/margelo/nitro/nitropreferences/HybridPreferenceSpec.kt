@@ -60,6 +60,10 @@ abstract class HybridPreferenceSpec: HybridObject() {
   
   @DoNotStrip
   @Keep
+  abstract fun getAll(): Promise<Array<PreferenceEntry>>
+  
+  @DoNotStrip
+  @Keep
   abstract fun clear(): Promise<Unit>
 
   // Default implementation of `HybridObject.toString()`

@@ -61,6 +61,7 @@ namespace margelo::nitro::nitropreferences {
     std::shared_ptr<Promise<std::variant<nitro::NullType, bool>>> getBool(const std::string& key) override;
     std::shared_ptr<Promise<void>> setBool(const std::string& key, bool value) override;
     std::shared_ptr<Promise<void>> remove(const std::string& key) override;
+    std::shared_ptr<Promise<std::vector<PreferenceEntry>>> getAll() override;
     std::shared_ptr<Promise<void>> clear() override;
 
   private:

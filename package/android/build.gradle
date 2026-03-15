@@ -138,5 +138,11 @@ dependencies {
 
   // Add a dependency on NitroModules
   implementation project(":react-native-nitro-modules")
+
+  // Datasore and Coroutines dependencies for the sample module
+  implementation "androidx.datastore:datastore-preferences:1.2.1"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2"
+  // okio dep for datastore
+  implementation "com.squareup.okio:okio:3.17.0"
 }
 

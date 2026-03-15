@@ -13,12 +13,15 @@
 #error NitroModules cannot be found! Are you sure you installed NitroModules properly?
 #endif
 
-
+// Forward declaration of `PreferenceEntry` to properly resolve imports.
+namespace margelo::nitro::nitropreferences { struct PreferenceEntry; }
 
 #include <NitroModules/Null.hpp>
 #include <string>
 #include <variant>
 #include <NitroModules/Promise.hpp>
+#include "PreferenceEntry.hpp"
+#include <vector>
 
 namespace margelo::nitro::nitropreferences {
 
@@ -58,6 +61,7 @@ namespace margelo::nitro::nitropreferences {
       virtual std::shared_ptr<Promise<std::variant<nitro::NullType, bool>>> getBool(const std::string& key) = 0;
       virtual std::shared_ptr<Promise<void>> setBool(const std::string& key, bool value) = 0;
       virtual std::shared_ptr<Promise<void>> remove(const std::string& key) = 0;
+      virtual std::shared_ptr<Promise<std::vector<PreferenceEntry>>> getAll() = 0;
       virtual std::shared_ptr<Promise<void>> clear() = 0;
 
     protected:

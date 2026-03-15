@@ -54,6 +54,14 @@ namespace margelo::nitro::nitropreferences::bridge::swift {
     };
   }
   
+  // pragma MARK: std::function<void(const std::vector<PreferenceEntry>& /* result */)>
+  Func_void_std__vector_PreferenceEntry_ create_Func_void_std__vector_PreferenceEntry_(void* NON_NULL swiftClosureWrapper) noexcept {
+    auto swiftClosure = NitroPreferences::Func_void_std__vector_PreferenceEntry_::fromUnsafe(swiftClosureWrapper);
+    return [swiftClosure = std::move(swiftClosure)](const std::vector<PreferenceEntry>& result) mutable -> void {
+      swiftClosure.call(result);
+    };
+  }
+  
   // pragma MARK: std::shared_ptr<HybridPreferenceSpec>
   std::shared_ptr<HybridPreferenceSpec> create_std__shared_ptr_HybridPreferenceSpec_(void* NON_NULL swiftUnsafePointer) noexcept {
     NitroPreferences::HybridPreferenceSpec_cxx swiftPart = NitroPreferences::HybridPreferenceSpec_cxx::fromUnsafe(swiftUnsafePointer);

@@ -10,6 +10,8 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridPreferenceSpec` to properly resolve imports.
 namespace margelo::nitro::nitropreferences { class HybridPreferenceSpec; }
+// Forward declaration of `PreferenceEntry` to properly resolve imports.
+namespace margelo::nitro::nitropreferences { struct PreferenceEntry; }
 
 // Forward declarations of Swift defined types
 // Forward declaration of `HybridPreferenceSpec_cxx` to properly resolve imports.
@@ -17,6 +19,7 @@ namespace NitroPreferences { class HybridPreferenceSpec_cxx; }
 
 // Include C++ defined types
 #include "HybridPreferenceSpec.hpp"
+#include "PreferenceEntry.hpp"
 #include <NitroModules/Null.hpp>
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/PromiseHolder.hpp>
@@ -24,8 +27,10 @@ namespace NitroPreferences { class HybridPreferenceSpec_cxx; }
 #include <exception>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <string>
 #include <variant>
+#include <vector>
 
 /**
  * Contains specialized versions of C++ templated types so they can be accessed from Swift,
@@ -278,6 +283,96 @@ namespace margelo::nitro::nitropreferences::bridge::swift {
     return Func_void_std__variant_nitro__NullType__bool__Wrapper(std::move(value));
   }
   
+  // pragma MARK: std::optional<std::variant<nitro::NullType, std::string>>
+  /**
+   * Specialized version of `std::optional<std::variant<nitro::NullType, std::string>>`.
+   */
+  using std__optional_std__variant_nitro__NullType__std__string__ = std::optional<std::variant<nitro::NullType, std::string>>;
+  inline std::optional<std::variant<nitro::NullType, std::string>> create_std__optional_std__variant_nitro__NullType__std__string__(const std::variant<nitro::NullType, std::string>& value) noexcept {
+    return std::optional<std::variant<nitro::NullType, std::string>>(value);
+  }
+  inline bool has_value_std__optional_std__variant_nitro__NullType__std__string__(const std::optional<std::variant<nitro::NullType, std::string>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::variant<nitro::NullType, std::string> get_std__optional_std__variant_nitro__NullType__std__string__(const std::optional<std::variant<nitro::NullType, std::string>>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::optional<std::variant<nitro::NullType, double>>
+  /**
+   * Specialized version of `std::optional<std::variant<nitro::NullType, double>>`.
+   */
+  using std__optional_std__variant_nitro__NullType__double__ = std::optional<std::variant<nitro::NullType, double>>;
+  inline std::optional<std::variant<nitro::NullType, double>> create_std__optional_std__variant_nitro__NullType__double__(const std::variant<nitro::NullType, double>& value) noexcept {
+    return std::optional<std::variant<nitro::NullType, double>>(value);
+  }
+  inline bool has_value_std__optional_std__variant_nitro__NullType__double__(const std::optional<std::variant<nitro::NullType, double>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::variant<nitro::NullType, double> get_std__optional_std__variant_nitro__NullType__double__(const std::optional<std::variant<nitro::NullType, double>>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::optional<std::variant<nitro::NullType, bool>>
+  /**
+   * Specialized version of `std::optional<std::variant<nitro::NullType, bool>>`.
+   */
+  using std__optional_std__variant_nitro__NullType__bool__ = std::optional<std::variant<nitro::NullType, bool>>;
+  inline std::optional<std::variant<nitro::NullType, bool>> create_std__optional_std__variant_nitro__NullType__bool__(const std::variant<nitro::NullType, bool>& value) noexcept {
+    return std::optional<std::variant<nitro::NullType, bool>>(value);
+  }
+  inline bool has_value_std__optional_std__variant_nitro__NullType__bool__(const std::optional<std::variant<nitro::NullType, bool>>& optional) noexcept {
+    return optional.has_value();
+  }
+  inline std::variant<nitro::NullType, bool> get_std__optional_std__variant_nitro__NullType__bool__(const std::optional<std::variant<nitro::NullType, bool>>& optional) noexcept {
+    return optional.value();
+  }
+  
+  // pragma MARK: std::vector<PreferenceEntry>
+  /**
+   * Specialized version of `std::vector<PreferenceEntry>`.
+   */
+  using std__vector_PreferenceEntry_ = std::vector<PreferenceEntry>;
+  inline std::vector<PreferenceEntry> create_std__vector_PreferenceEntry_(size_t size) noexcept {
+    std::vector<PreferenceEntry> vector;
+    vector.reserve(size);
+    return vector;
+  }
+  
+  // pragma MARK: std::shared_ptr<Promise<std::vector<PreferenceEntry>>>
+  /**
+   * Specialized version of `std::shared_ptr<Promise<std::vector<PreferenceEntry>>>`.
+   */
+  using std__shared_ptr_Promise_std__vector_PreferenceEntry___ = std::shared_ptr<Promise<std::vector<PreferenceEntry>>>;
+  inline std::shared_ptr<Promise<std::vector<PreferenceEntry>>> create_std__shared_ptr_Promise_std__vector_PreferenceEntry___() noexcept {
+    return Promise<std::vector<PreferenceEntry>>::create();
+  }
+  inline PromiseHolder<std::vector<PreferenceEntry>> wrap_std__shared_ptr_Promise_std__vector_PreferenceEntry___(std::shared_ptr<Promise<std::vector<PreferenceEntry>>> promise) noexcept {
+    return PromiseHolder<std::vector<PreferenceEntry>>(std::move(promise));
+  }
+  
+  // pragma MARK: std::function<void(const std::vector<PreferenceEntry>& /* result */)>
+  /**
+   * Specialized version of `std::function<void(const std::vector<PreferenceEntry>&)>`.
+   */
+  using Func_void_std__vector_PreferenceEntry_ = std::function<void(const std::vector<PreferenceEntry>& /* result */)>;
+  /**
+   * Wrapper class for a `std::function<void(const std::vector<PreferenceEntry>& / * result * /)>`, this can be used from Swift.
+   */
+  class Func_void_std__vector_PreferenceEntry__Wrapper final {
+  public:
+    explicit Func_void_std__vector_PreferenceEntry__Wrapper(std::function<void(const std::vector<PreferenceEntry>& /* result */)>&& func): _function(std::make_unique<std::function<void(const std::vector<PreferenceEntry>& /* result */)>>(std::move(func))) {}
+    inline void call(std::vector<PreferenceEntry> result) const noexcept {
+      _function->operator()(result);
+    }
+  private:
+    std::unique_ptr<std::function<void(const std::vector<PreferenceEntry>& /* result */)>> _function;
+  } SWIFT_NONCOPYABLE;
+  Func_void_std__vector_PreferenceEntry_ create_Func_void_std__vector_PreferenceEntry_(void* NON_NULL swiftClosureWrapper) noexcept;
+  inline Func_void_std__vector_PreferenceEntry__Wrapper wrap_Func_void_std__vector_PreferenceEntry_(Func_void_std__vector_PreferenceEntry_ value) noexcept {
+    return Func_void_std__vector_PreferenceEntry__Wrapper(std::move(value));
+  }
+  
   // pragma MARK: std::shared_ptr<HybridPreferenceSpec>
   /**
    * Specialized version of `std::shared_ptr<HybridPreferenceSpec>`.
@@ -324,6 +419,15 @@ namespace margelo::nitro::nitropreferences::bridge::swift {
   }
   inline Result_std__shared_ptr_Promise_std__variant_nitro__NullType__bool____ create_Result_std__shared_ptr_Promise_std__variant_nitro__NullType__bool____(const std::exception_ptr& error) noexcept {
     return Result<std::shared_ptr<Promise<std::variant<nitro::NullType, bool>>>>::withError(error);
+  }
+  
+  // pragma MARK: Result<std::shared_ptr<Promise<std::vector<PreferenceEntry>>>>
+  using Result_std__shared_ptr_Promise_std__vector_PreferenceEntry____ = Result<std::shared_ptr<Promise<std::vector<PreferenceEntry>>>>;
+  inline Result_std__shared_ptr_Promise_std__vector_PreferenceEntry____ create_Result_std__shared_ptr_Promise_std__vector_PreferenceEntry____(const std::shared_ptr<Promise<std::vector<PreferenceEntry>>>& value) noexcept {
+    return Result<std::shared_ptr<Promise<std::vector<PreferenceEntry>>>>::withValue(value);
+  }
+  inline Result_std__shared_ptr_Promise_std__vector_PreferenceEntry____ create_Result_std__shared_ptr_Promise_std__vector_PreferenceEntry____(const std::exception_ptr& error) noexcept {
+    return Result<std::shared_ptr<Promise<std::vector<PreferenceEntry>>>>::withError(error);
   }
 
 } // namespace margelo::nitro::nitropreferences::bridge::swift

@@ -4,6 +4,13 @@ type StringOutput = string | null
 type NumberOutput = number | null
 type BoolOutput = boolean | null
 
+type PreferenceEntry = {
+  key: string
+  stringValue: string | null
+  numberValue: number | null
+  boolValue: boolean | null
+}
+
 export interface Preference extends HybridObject<{
   ios: 'swift'
   android: 'kotlin'
@@ -15,5 +22,6 @@ export interface Preference extends HybridObject<{
   getBool(key: string): Promise<BoolOutput>
   setBool(key: string, value: boolean): Promise<void>
   remove(key: string): Promise<void>
+  getAll(): Promise<PreferenceEntry[]>
   clear(): Promise<void>
 }

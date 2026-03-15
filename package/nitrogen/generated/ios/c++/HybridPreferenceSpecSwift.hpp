@@ -12,12 +12,16 @@
 // Forward declaration of `HybridPreferenceSpec_cxx` to properly resolve imports.
 namespace NitroPreferences { class HybridPreferenceSpec_cxx; }
 
-
+// Forward declaration of `PreferenceEntry` to properly resolve imports.
+namespace margelo::nitro::nitropreferences { struct PreferenceEntry; }
 
 #include <NitroModules/Null.hpp>
 #include <string>
 #include <variant>
 #include <NitroModules/Promise.hpp>
+#include "PreferenceEntry.hpp"
+#include <vector>
+#include <optional>
 
 #include "NitroPreferences-Swift-Cxx-Umbrella.hpp"
 
@@ -119,6 +123,14 @@ namespace margelo::nitro::nitropreferences {
     }
     inline std::shared_ptr<Promise<void>> remove(const std::string& key) override {
       auto __result = _swiftPart.remove(key);
+      if (__result.hasError()) [[unlikely]] {
+        std::rethrow_exception(__result.error());
+      }
+      auto __value = std::move(__result.value());
+      return __value;
+    }
+    inline std::shared_ptr<Promise<std::vector<PreferenceEntry>>> getAll() override {
+      auto __result = _swiftPart.getAll();
       if (__result.hasError()) [[unlikely]] {
         std::rethrow_exception(__result.error());
       }

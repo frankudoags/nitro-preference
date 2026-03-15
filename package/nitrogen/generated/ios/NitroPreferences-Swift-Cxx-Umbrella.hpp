@@ -10,16 +10,21 @@
 // Forward declarations of C++ defined types
 // Forward declaration of `HybridPreferenceSpec` to properly resolve imports.
 namespace margelo::nitro::nitropreferences { class HybridPreferenceSpec; }
+// Forward declaration of `PreferenceEntry` to properly resolve imports.
+namespace margelo::nitro::nitropreferences { struct PreferenceEntry; }
 
 // Include C++ defined types
 #include "HybridPreferenceSpec.hpp"
+#include "PreferenceEntry.hpp"
 #include <NitroModules/Null.hpp>
 #include <NitroModules/Promise.hpp>
 #include <NitroModules/Result.hpp>
 #include <exception>
 #include <memory>
+#include <optional>
 #include <string>
 #include <variant>
+#include <vector>
 
 // C++ helpers for Swift
 #include "NitroPreferences-Swift-Cxx-Bridge.hpp"

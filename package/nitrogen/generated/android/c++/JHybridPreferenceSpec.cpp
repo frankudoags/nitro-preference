@@ -7,7 +7,8 @@
 
 #include "JHybridPreferenceSpec.hpp"
 
-
+// Forward declaration of `PreferenceEntry` to properly resolve imports.
+namespace margelo::nitro::nitropreferences { struct PreferenceEntry; }
 
 #include <NitroModules/Null.hpp>
 #include <string>
@@ -19,6 +20,13 @@
 #include <NitroModules/JUnit.hpp>
 #include "JNumberOutput.hpp"
 #include "JBoolOutput.hpp"
+#include "PreferenceEntry.hpp"
+#include <vector>
+#include "JPreferenceEntry.hpp"
+#include <optional>
+#include "JVariant_NullType_String.hpp"
+#include "JVariant_NullType_Double.hpp"
+#include "JVariant_NullType_Boolean.hpp"
 
 namespace margelo::nitro::nitropreferences {
 
@@ -153,6 +161,31 @@ namespace margelo::nitro::nitropreferences {
       auto __promise = Promise<void>::create();
       __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& /* unit */) {
         __promise->resolve();
+      });
+      __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
+        jni::JniException __jniError(__throwable);
+        __promise->reject(std::make_exception_ptr(__jniError));
+      });
+      return __promise;
+    }();
+  }
+  std::shared_ptr<Promise<std::vector<PreferenceEntry>>> JHybridPreferenceSpec::getAll() {
+    static const auto method = _javaPart->javaClassStatic()->getMethod<jni::local_ref<JPromise::javaobject>()>("getAll");
+    auto __result = method(_javaPart);
+    return [&]() {
+      auto __promise = Promise<std::vector<PreferenceEntry>>::create();
+      __result->cthis()->addOnResolvedListener([=](const jni::alias_ref<jni::JObject>& __boxedResult) {
+        auto __result = jni::static_ref_cast<jni::JArrayClass<JPreferenceEntry>>(__boxedResult);
+        __promise->resolve([&]() {
+          size_t __size = __result->size();
+          std::vector<PreferenceEntry> __vector;
+          __vector.reserve(__size);
+          for (size_t __i = 0; __i < __size; __i++) {
+            auto __element = __result->getElement(__i);
+            __vector.push_back(__element->toCpp());
+          }
+          return __vector;
+        }());
       });
       __result->cthis()->addOnRejectedListener([=](const jni::alias_ref<jni::JThrowable>& __throwable) {
         jni::JniException __jniError(__throwable);

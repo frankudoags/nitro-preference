@@ -3,18 +3,30 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Alert } from 'react-native'
 import { Preference } from 'nitro-preferences'
 
+const FIXED_KEYS = {
+  string: 'my_key_string',
+  number: 'my_key_number',
+  bool: 'my_key_bool',
+} as const
+
+type StoredValue = {
+  id: string
+  key: string
+  type: 'string' | 'number' | 'boolean'
+  value: string
+}
+
 export default function App() {
-  const [key, setKey] = useState('my_key')
   const [stringValue, setStringValue] = useState('hello world')
   const [numberValue, setNumberValue] = useState('42')
   const [boolValue, setBoolValue] = useState(true)
-  const [storedValues, setStoredValues] = useState<Array<{ key: string; type: string; value: string }>>([])
+  const [storedValues, setStoredValues] = useState<StoredValue[]>([])
 
   const handleSetString = async () => {
     try {
-      await Preference.setString(key, stringValue)
+      await Preference.setString(FIXED_KEYS.string, stringValue)
       loadValues()
-      Alert.alert('Success', `Set string: ${key} = ${stringValue}`)
+      Alert.alert('Success', `Set string: ${FIXED_KEYS.string} = ${stringValue}`)
     } catch (error) {
       Alert.alert('Error', String(error))
     }
@@ -27,9 +39,9 @@ export default function App() {
         Alert.alert('Error', 'Invalid number')
         return
       }
-      await Preference.setNumber(key, num)
+      await Preference.setNumber(FIXED_KEYS.number, num)
       loadValues()
-      Alert.alert('Success', `Set number: ${key} = ${num}`)
+      Alert.alert('Success', `Set number: ${FIXED_KEYS.number} = ${num}`)
     } catch (error) {
       Alert.alert('Error', String(error))
     }
@@ -37,9 +49,9 @@ export default function App() {
 
   const handleSetBool = async () => {
     try {
-      await Preference.setBool(key, boolValue)
+      await Preference.setBool(FIXED_KEYS.bool, boolValue)
       loadValues()
-      Alert.alert('Success', `Set bool: ${key} = ${boolValue}`)
+      Alert.alert('Success', `Set bool: ${FIXED_KEYS.bool} = ${boolValue}`)
     } catch (error) {
       Alert.alert('Error', String(error))
     }
@@ -47,9 +59,9 @@ export default function App() {
 
   const handleGetString = async () => {
     try {
-      const value = await Preference.getString(key)
+      const value = await Preference.getString(FIXED_KEYS.string)
       loadValues()
-      Alert.alert('Result', `String value for "${key}": ${value ?? 'null'}`)
+      Alert.alert('Result', `String value for "${FIXED_KEYS.string}": ${value ?? 'null'}`)
     } catch (error) {
       Alert.alert('Error', String(error))
     }
@@ -57,9 +69,9 @@ export default function App() {
 
   const handleGetNumber = async () => {
     try {
-      const value = await Preference.getNumber(key)
+      const value = await Preference.getNumber(FIXED_KEYS.number)
       loadValues()
-      Alert.alert('Result', `Number value for "${key}": ${value ?? 'null'}`)
+      Alert.alert('Result', `Number value for "${FIXED_KEYS.number}": ${value ?? 'null'}`)
     } catch (error) {
       Alert.alert('Error', String(error))
     }
@@ -67,9 +79,9 @@ export default function App() {
 
   const handleGetBool = async () => {
     try {
-      const value = await Preference.getBool(key)
+      const value = await Preference.getBool(FIXED_KEYS.bool)
       loadValues()
-      Alert.alert('Result', `Bool value for "${key}": ${value ?? 'null'}`)
+      Alert.alert('Result', `Bool value for "${FIXED_KEYS.bool}": ${value ?? 'null'}`)
     } catch (error) {
       Alert.alert('Error', String(error))
     }
@@ -77,9 +89,13 @@ export default function App() {
 
   const handleRemove = async () => {
     try {
-      await Preference.remove(key)
+      await Promise.all([
+        Preference.remove(FIXED_KEYS.string),
+        Preference.remove(FIXED_KEYS.number),
+        Preference.remove(FIXED_KEYS.bool),
+      ])
       loadValues()
-      Alert.alert('Success', `Removed key: ${key}`)
+      Alert.alert('Success', 'Removed all fixed keys')
     } catch (error) {
       Alert.alert('Error', String(error))
     }
@@ -97,25 +113,29 @@ export default function App() {
 
   const loadValues = async () => {
     try {
-      const testKeys = ['my_key', 'my_key_string', 'my_key_number', 'my_key_bool']
-      const values: Array<{ key: string; type: string; value: string }> = []
+      const testKeys = [
+        { id: 'string', key: FIXED_KEYS.string },
+        { id: 'number', key: FIXED_KEYS.number },
+        { id: 'bool', key: FIXED_KEYS.bool },
+      ] as const
+      const values: StoredValue[] = []
 
       for (const testKey of testKeys) {
-        const strValue = await Preference.getString(testKey)
+        const strValue = await Preference.getString(testKey.key)
         if (strValue !== null) {
-          values.push({ key: testKey, type: 'string', value: strValue })
+          values.push({ id: testKey.id, key: testKey.key, type: 'string', value: strValue })
           continue
         }
 
-        const numValue = await Preference.getNumber(testKey)
+        const numValue = await Preference.getNumber(testKey.key)
         if (numValue !== null) {
-          values.push({ key: testKey, type: 'number', value: String(numValue) })
+          values.push({ id: testKey.id, key: testKey.key, type: 'number', value: String(numValue) })
           continue
         }
 
-        const boolValue = await Preference.getBool(testKey)
-        if (boolValue !== null) {
-          values.push({ key: testKey, type: 'boolean', value: String(boolValue) })
+        const boolStoredValue = await Preference.getBool(testKey.key)
+        if (boolStoredValue !== null) {
+          values.push({ id: testKey.id, key: testKey.key, type: 'boolean', value: String(boolStoredValue) })
           continue
         }
       }
@@ -137,12 +157,7 @@ export default function App() {
         <Text style={styles.title}>Nitro Preferences Demo</Text>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Key</Text>
-          <TextInput style={styles.input} value={key} onChangeText={setKey} placeholder="Enter key" />
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>String Value</Text>
+          <Text style={styles.sectionTitle}>String Value ({FIXED_KEYS.string})</Text>
           <TextInput
             style={styles.input}
             value={stringValue}
@@ -160,7 +175,7 @@ export default function App() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Number Value</Text>
+          <Text style={styles.sectionTitle}>Number Value ({FIXED_KEYS.number})</Text>
           <TextInput
             style={styles.input}
             value={numberValue}
@@ -179,7 +194,7 @@ export default function App() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Boolean Value: {boolValue ? 'true' : 'false'}</Text>
+          <Text style={styles.sectionTitle}>Boolean Value ({FIXED_KEYS.bool}): {boolValue ? 'true' : 'false'}</Text>
           <View style={styles.buttonRow}>
             <TouchableOpacity style={styles.button} onPress={handleSetBool}>
               <Text style={styles.buttonText}>Set Bool</Text>
@@ -197,7 +212,7 @@ export default function App() {
           <Text style={styles.sectionTitle}>Actions</Text>
           <View style={styles.buttonRow}>
             <TouchableOpacity style={[styles.button, styles.buttonDanger]} onPress={handleRemove}>
-              <Text style={styles.buttonText}>Remove Key</Text>
+              <Text style={styles.buttonText}>Remove Fixed Keys</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button, styles.buttonDanger]} onPress={handleClear}>
               <Text style={styles.buttonText}>Clear All</Text>
@@ -210,8 +225,8 @@ export default function App() {
           {storedValues.length === 0 ? (
             <Text style={styles.noData}>No values stored</Text>
           ) : (
-            storedValues.map((item, index) => (
-              <View key={index} style={styles.valueItem}>
+            storedValues.map((item) => (
+              <View key={item.id} style={styles.valueItem}>
                 <Text style={styles.valueKey}>{item.key}</Text>
                 <Text style={styles.valueType}>[{item.type}]</Text>
                 <Text style={styles.valueValue}>{item.value}</Text>

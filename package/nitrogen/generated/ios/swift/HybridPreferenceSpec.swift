@@ -20,6 +20,7 @@ public protocol HybridPreferenceSpec_protocol: HybridObject {
   func getBool(key: String) throws -> Promise<BoolOutput>
   func setBool(key: String, value: Bool) throws -> Promise<Void>
   func remove(key: String) throws -> Promise<Void>
+  func getAll() throws -> Promise<[PreferenceEntry]>
   func clear() throws -> Promise<Void>
 }
 
