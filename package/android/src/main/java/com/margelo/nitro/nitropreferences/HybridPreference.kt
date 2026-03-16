@@ -96,21 +96,21 @@ class HybridPreference : HybridPreferenceSpec() {
                     is String -> PreferenceEntry(
                         prefKey.name,
                         StringOutput.create(value),
-                        null,
-                        null
+                        NumberOutput.create(NullType.NULL),
+                        BoolOutput.create(NullType.NULL)
                     )
 
                     is Double -> PreferenceEntry(
                         prefKey.name,
-                        null,
+                        StringOutput.create(NullType.NULL),
                         NumberOutput.create(value),
-                        null
+                        BoolOutput.create(NullType.NULL)
                     )
 
                     is Boolean -> PreferenceEntry(
                         prefKey.name,
-                        null,
-                        null,
+                        StringOutput.create(NullType.NULL),
+                        NumberOutput.create(NullType.NULL),
                         BoolOutput.create(value)
                     )
 
@@ -119,6 +119,7 @@ class HybridPreference : HybridPreferenceSpec() {
 
             }
                 .filterNotNull()
+                .sortedBy { it.key }
                 .toTypedArray()
         }
     }

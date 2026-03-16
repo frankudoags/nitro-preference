@@ -4,7 +4,13 @@
     "module": "ESNext",
     "jsx": "react",
     "strict": true,
-    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "nitro-preferences": [
+        "../package/src/index"
+      ]
+    },
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
